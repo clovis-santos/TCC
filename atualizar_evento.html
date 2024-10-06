@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atualizar Evento</title>
+</head>
+<body>
+    <h1>Atualizar Evento</h1>
+    <form method="POST">
+        <select name="id">
+            {% for evento in eventos %}
+                <option value="{{ evento.id }}">{{ evento.nome }}</option>
+            {% endfor %}
+        </select><br>
+        Nome: <input type="text" name="nome"><br>
+        Data: <input type="date" name="data"><br>
+        Local: <input type="text" name="local"><br>
+        <button type="submit">Atualizar</button>
+    </form>
+    <br>
+    <a href="/">Voltar para Home</a>
+</body>
+</html>
