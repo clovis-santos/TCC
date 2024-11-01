@@ -7,7 +7,7 @@ app = Flask(__name__)
 db = mysql.connector.connect(
     host="127.0.0.1",
     user="root",
-    password="Clovis123",
+    password="Clovis123", 
     database="gestao_eventos"
 )
 
@@ -46,6 +46,21 @@ def atualizar_evento():
         return redirect('/atualizar_evento')
     
     return render_template('atualizar_evento.html', eventos=eventos)
+
+# Página para excluir eventos
+@app.route('/excluir_evento', methods=['GET', 'POST'])
+def excluir_evento():
+    cursor = db.cursor(dictionary=True)
+    cursor.execute("SELECT * FROM eventos")
+    eventos = cursor.fetchall()
+
+    if request.method == 'POST':
+        id = request.form['id']
+        cursor.execute("DELETE FROM eventos WHERE id=%s", (id,))
+        db.commit()
+        return redirect('/excluir_evento')
+    
+    return render_template('excluir_evento.html', eventos=eventos)
 
 if __name__ == '__main__':
     app.run(debug=True)
