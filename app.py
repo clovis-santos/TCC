@@ -7,7 +7,7 @@ app = Flask(__name__)
 db = mysql.connector.connect(
     host="127.0.0.1",
     user="root",
-    password="Clovis123", 
+    password="Clovis123",  
     database="gestao_eventos"
 )
 
@@ -61,6 +61,24 @@ def excluir_evento():
         return redirect('/excluir_evento')
     
     return render_template('excluir_evento.html', eventos=eventos)
+
+# Página de cadastro de palestrante
+@app.route('/cadastro_palestrante', methods=['GET', 'POST'])
+def cadastro_palestrante():
+    cursor = db.cursor(dictionary=True)
+    cursor.execute("SELECT * FROM eventos")
+    eventos = cursor.fetchall()
+
+    if request.method == 'POST':
+        nome = request.form['nome']
+        especialidade = request.form['especialidade']
+        evento_id = request.form['evento_id']
+        cursor.execute("INSERT INTO palestrantes (nome, especialidade, evento_id) VALUES (%s, %s, %s)", (nome, especialidade, evento_id))
+        db.commit()
+        return redirect('/cadastro_palestrante')
+    
+    return render_template('cadastro_palestrante.html', eventos=eventos)
+
 
 if __name__ == '__main__':
     app.run(debug=True)

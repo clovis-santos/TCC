@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Palestrante</title>
+</head>
+<body>
+    <h1>Cadastrar Palestrante</h1>
+    <form method="POST">
+        Nome: <input type="text" name="nome"><br>
+        Especialidade: <input type="text" name="especialidade"><br>
+        Evento: 
+        <select name="evento_id">
+            {% for evento in eventos %}
+                <option value="{{ evento.id }}">{{ evento.nome }}</option>
+            {% endfor %}
+        </select><br>
+        <button type="submit">Cadastrar</button>
+    </form>
+    <br>
+    <a href="/">Voltar para Home</a>
+</body>
+</html>
